@@ -30,8 +30,11 @@ const uploadImage = async (formData: FormData) => {
 };
 
 const getProducts = () => {
-  const products = localStorage.getItem(PRODUCT_KEY);
-  return products ? JSON.parse(products) : [];
+  if (typeof window !== "undefined") {
+    const products = localStorage.getItem(PRODUCT_KEY);
+    return products ? JSON.parse(products) : [];
+  }
+  return [];
 };
 
 const saveProducts = (products: ProductDataProps[]) => {
