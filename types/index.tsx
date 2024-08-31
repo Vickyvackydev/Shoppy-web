@@ -10,7 +10,7 @@ export interface ProductDataProps {
   id: string;
   name: string;
   category: string;
-  price: string;
+  price: number;
   image: string;
   isPopular: boolean;
 }

@@ -174,6 +174,24 @@ export const testimonialsdata = [
     text: "Our house getting better everyday because we shopped in shoppy with cheaper prices yet high quality.",
   },
 ];
+
+export const categories = [
+  "fashion",
+  "gadget",
+  "travel",
+  "food",
+  "office",
+  "transport",
+];
+
+export const prices = [
+  [100, 500],
+  [600, 1000],
+  [1500, 2000],
+  [2500, 3000],
+  [3500, 4000],
+  [4500, 5000],
+];
 export const footerlinks = [
   {
     title: "Products",

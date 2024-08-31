@@ -36,7 +36,7 @@ const useGetLocalStorageData = () => {
     };
 
     fetchData();
-  }, [getProducts()]);
+  }, []);
 
   return { data, loading };
 };

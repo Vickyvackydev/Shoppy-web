@@ -7,16 +7,18 @@ import { ProductDataProps } from "@/types";
 import { useGetLocalStorageData } from "@/hooks";
 import Button from "@/shared/components/button";
 import { useAppQuery } from "@/context/useAppQuery";
+import { useRouter } from "next/navigation";
 
 const PRODUCT_KEY = "products";
 function ProductSection() {
-  const { setModal, setSelectedData } = useAppQuery();
+  const { setModal, setSelectedData, setModalState } = useAppQuery();
   const { data: products, loading } = useGetLocalStorageData();
+  const router = useRouter();
 
   if (loading)
     return (
       <div className="text-gray-300 mt-10 font-semibold text-3xl flex justify-center items-center">
-        Products Loading...
+        Loading Products...
       </div>
     );
   return (
@@ -42,10 +44,19 @@ function ProductSection() {
             handleClick={() => {
               setModal(true);
               setSelectedData(null);
+              setModalState("upload");
             }}
             type="button"
           />
         </div>
+      )}
+      {products.length > 0 && (
+        <Button
+          text="View all"
+          btnStyles="mt-3"
+          handleClick={() => router.push("/products")}
+          type="button"
+        />
       )}
     </main>
   );

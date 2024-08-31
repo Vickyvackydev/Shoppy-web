@@ -1,17 +1,14 @@
 "use client";
 import { useMediaQuery } from "@/hooks";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React from "react";
 
 function Logo() {
   const mobilescreen = useMediaQuery("(max-width: 640px)");
-  const router = useRouter();
+  // const router = useRouter();
   return (
-    <div
-      className="flex items-center gap-2 cursor-pointer"
-      onClick={() => router.push("/")}
-    >
+    <Link href="/" className="flex items-center gap-2 cursor-pointer">
       <Image
         src={"/shop-logo.png"}
         width={mobilescreen ? 50 : 100}
@@ -21,7 +18,7 @@ function Logo() {
       <span className="text-white lg:text-xl font-semibold text-xs">
         Shoppy
       </span>
-    </div>
+    </Link>
   );
 }
 

@@ -1,14 +1,15 @@
 "use client";
 import { ProductDataProps } from "@/types";
-import { deleteProduct } from "@/utils";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye, FaPlus } from "react-icons/fa";
 
 function ProductCard({ data }: { data: ProductDataProps }) {
   const [overlay, setOverlay] = useState<string | null>(null);
+  const pathname = usePathname();
 
   return (
     <div className="flex flex-col items-start gap-4 relative ">
@@ -38,14 +39,15 @@ function ProductCard({ data }: { data: ProductDataProps }) {
           className="lg:w-[250px] w-full h-[270px] absolute bg-black/50 inset-0 rounded-2xl  z-30"
         >
           <div className="flex justify-center items-center gap-5 mt-[7rem]">
-            <div
-              className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
+            <Link
+              href="#"
               onClick={() => localStorage.clear()}
+              className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
             >
               <span>
                 <FaPlus />
               </span>
-            </div>
+            </Link>
             <Link
               href={`/product-details/${data.id}`}
               className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
@@ -56,7 +58,13 @@ function ProductCard({ data }: { data: ProductDataProps }) {
         </Transition>
       </div>
       {data.isPopular && (
-        <div className="absolute bg-orange-500  lg:right-[3.2rem] right-0 rounded-tr-2xl rounded-bl-2xl top-0 text-sm   text-white font-medium py-1 px-3">
+        <div
+          className={`absolute bg-orange-500 ${
+            pathname.includes("/products")
+              ? " lg:right-[2.75rem]"
+              : "lg:right-[3.2rem]"
+          } right-0 rounded-tr-2xl rounded-bl-2xl top-0 text-sm  text-white font-medium py-1 px-3`}
+        >
           <span>{`Popular`.toUpperCase()}</span>
         </div>
       )}

@@ -64,7 +64,6 @@ const deleteProduct = (productId: number | string) => {
   const remainingProducts = products.filter(
     (product: ProductDataProps) => product.id !== productId
   );
-  console.log("Product deleted", remainingProducts);
   saveProducts(remainingProducts);
 };
 

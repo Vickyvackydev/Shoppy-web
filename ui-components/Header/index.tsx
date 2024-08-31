@@ -20,7 +20,7 @@ import { usePathname } from "next/navigation";
 interface FormTypes {
   id: string;
   name: string;
-  price: string;
+  price: number;
   category: string;
   image: string | null | File;
   isPopular: boolean;
@@ -39,13 +39,13 @@ function Header() {
   const [menu, setMenu] = useState(false);
   const mobilescreen = useMediaQuery("(max-width: 640px)");
   const [isSubmiting, setIsSubmiting] = useState(false);
-  const [isPopular, setIspopular] = useState(true);
+  const [isPopular, setIspopular] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [form, setForm] = useState<FormTypes>({
     id: selectedData?.id ?? "",
     name: selectedData?.name ?? "",
     category: selectedData?.category ?? "",
-    price: selectedData?.price ?? "",
+    price: selectedData?.price ?? 0,
     image: selectedData?.image ?? null,
     isPopular: selectedData?.isPopular ?? false,
   });
@@ -69,6 +69,7 @@ function Header() {
       }
 
       const formData = new FormData();
+
       formData.append("image", form.image);
 
       // Upload the image and get the URL
@@ -91,7 +92,7 @@ function Header() {
         id: "",
         name: "",
         category: "",
-        price: "",
+        price: 0,
         image: null,
         isPopular: false,
       });
@@ -107,7 +108,7 @@ function Header() {
         id: selectedData.id || "",
         name: selectedData.name || "",
         category: selectedData.category || "",
-        price: selectedData.price || "",
+        price: selectedData.price || 0,
         image: selectedData.image || null,
         isPopular: selectedData.isPopular || false,
       });
@@ -148,6 +149,7 @@ function Header() {
                 {navlinks.map((links) => (
                   <li
                     key={links.id}
+                    onClick={() => setMenu(false)}
                     className="hover:bg-orange-600 text-lg py-[6px] px-4 rounded-2xl cursor-pointer hover:text-gray-100 hover:font-medium"
                   >
                     {links.title}
@@ -171,6 +173,7 @@ function Header() {
                     setModal(true);
                     setModalState("upload");
                     setSelectedData(null);
+                    setMenu(false);
                   }}
                   btnStyles="mt-5 bg-orange-500 px-5 text-xl py-1"
                   type="button"
@@ -276,6 +279,7 @@ function Header() {
                   type="text"
                   value={form.price}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    // @ts-ignore
                     setForm({ ...form, price: e.target.value })
                   }
                   placeholder="Price"
