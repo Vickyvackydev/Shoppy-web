@@ -168,7 +168,7 @@ function Header() {
                 <div className="flex items-center gap-2 mt-3">
                   <div
                     className="flex items-center justify-center  h-8 w-8 bg-orange-500 rounded-full  cursor-pointer"
-                    onClick={() => getProducts()}
+                    onClick={() => reloadBrowser()}
                   >
                     <span className="text-white">
                       <FaSyncAlt />
