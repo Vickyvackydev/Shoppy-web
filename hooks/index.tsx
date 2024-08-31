@@ -30,7 +30,7 @@ const useGetLocalStorageData = (dataKey: any) => {
   useEffect(() => {
     const fetchData = () => {
       setLoading(true);
-      const storedData = localStorage.getItem(dataKey);
+      const storedData = window.localStorage.getItem(dataKey);
       const parsedData = storedData ? JSON.parse(storedData) : [];
       setData(parsedData);
       setLoading(false);
