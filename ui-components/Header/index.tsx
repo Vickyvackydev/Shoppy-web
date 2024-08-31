@@ -13,7 +13,13 @@ import {
   FaSyncAlt,
   FaTimes,
 } from "react-icons/fa";
-import { addProduct, getProducts, updateProduct, uploadImage } from "@/utils";
+import {
+  addProduct,
+  getProducts,
+  reloadBrowser,
+  updateProduct,
+  uploadImage,
+} from "@/utils";
 import Image from "next/image";
 import { useAppQuery } from "@/context/useAppQuery";
 import { Transition } from "@headlessui/react";
@@ -204,7 +210,7 @@ function Header() {
           <div className="flex items-center gap-2">
             <div
               className="flex items-center justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer"
-              onClick={() => getProducts()}
+              onClick={() => reloadBrowser()}
             >
               <span className="text-white">
                 <FaSyncAlt />

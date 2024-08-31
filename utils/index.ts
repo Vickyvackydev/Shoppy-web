@@ -68,5 +68,17 @@ const deleteProduct = (productId: number | string) => {
   );
   saveProducts(remainingProducts);
 };
+const reloadBrowser = () => {
+  if (typeof window !== "undefined") {
+    window.location.reload();
+  }
+};
 
-export { deleteProduct, addProduct, updateProduct, getProducts, uploadImage };
+export {
+  deleteProduct,
+  addProduct,
+  updateProduct,
+  getProducts,
+  uploadImage,
+  reloadBrowser,
+};
