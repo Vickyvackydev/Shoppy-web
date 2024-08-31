@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 function SearchResults() {
   const pathname = usePathname();
   const query = pathname.split("/").pop();
-  const { data: products } = useGetLocalStorageData();
+  const { data: products } = useGetLocalStorageData("products");
   const [results, setResults] = useState<ProductDataProps[]>([]);
 
   useEffect(() => {

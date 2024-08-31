@@ -13,7 +13,7 @@ const workSans = Work_Sans({
 export const metadata: Metadata = {
   title: "Shoppy",
   description:
-    "Welcome to your number shopping vendor, known for the best products",
+    "Welcome to your number one shopping vendor, known for the best products",
 };
 
 export default function RootLayout({

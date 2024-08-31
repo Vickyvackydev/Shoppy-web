@@ -34,7 +34,7 @@ function Hero() {
               setQuery(e.target.value)
             }
             className="bg-transparent w-full placeholder:text-sm px-5 outline-none text-gray-200 text-sm "
-            placeholder="search product by name, category or trend"
+            placeholder="search product by name"
           />
           <button
             type="submit"

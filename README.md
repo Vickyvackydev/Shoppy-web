@@ -20,6 +20,41 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## Project Overview
+
+A crud App generated with Nextjs, typescript and tailwind css.
+
+-Data Fetching: All data are being fetched from localstorage.
+
+-Image Hosting: Due to the asynchronous data state, images were needed to be hosted in a cloud stage, to get url of the images for it to be displayed on the browser.
+
+-Custom Hook: Data are being fetched from localstorage with a custom hook created to fetche data with rewriting a useEffect state.
+
+-CRUD FUNCTIONs: Add products, Edit products, Delete products, and product listings to display all products on the web page.
+
+-Dynamic routes: Product details are viewed in another page, with a dynamic route, so as searching for a product by it name.
+
+## Design Decision
+
+This project was built any figma, base on experience building web apps, this site was generated.
+
+## Optimization
+
+Custom hook to render data faster to all pages.
+
+## SEO
+
+Nextjs comes with it's own seo management, making it fast an easy to search online, seo was handled in with Nextjs meta data in the layout component.
+
+## Bugs
+
+Data might not reload on time due to data being fetched from localstorage.
+Cloudinary tend to conflict images uploaded but doesn.t happen always. For that a button to reload products was added.
+
+## Note
+
+When you are updating an item, kindly change the item image for better experience, for it is made necessary than other fields on the ui.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

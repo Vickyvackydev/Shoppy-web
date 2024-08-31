@@ -23,20 +23,21 @@ const useMediaQuery = (query: QueryProps) => {
   return match;
 };
 
-const useGetLocalStorageData = () => {
+const useGetLocalStorageData = (dataKey: any) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = () => {
       setLoading(true);
-
-      setData(getProducts());
+      const storedData = localStorage.getItem(dataKey);
+      const parsedData = storedData ? JSON.parse(storedData) : [];
+      setData(parsedData);
       setLoading(false);
     };
 
     fetchData();
-  }, []);
+  }, [dataKey]);
 
   return { data, loading };
 };

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
-import { FaEye, FaPlus } from "react-icons/fa";
+import { FaEye, FaHeart, FaPlus } from "react-icons/fa";
 
 function ProductCard({ data }: { data: ProductDataProps }) {
   const [overlay, setOverlay] = useState<string | null>(null);
@@ -45,7 +45,7 @@ function ProductCard({ data }: { data: ProductDataProps }) {
               className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
             >
               <span>
-                <FaPlus />
+                <FaHeart />
               </span>
             </Link>
             <Link

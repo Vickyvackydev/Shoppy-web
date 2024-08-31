@@ -10,6 +10,7 @@ import {
   FaCheck,
   FaImage,
   FaShoppingCart,
+  FaSyncAlt,
   FaTimes,
 } from "react-icons/fa";
 import { addProduct, getProducts, updateProduct, uploadImage } from "@/utils";
@@ -85,6 +86,7 @@ function Header() {
         // Add the product
         addProduct(updatedForm);
       }
+      getProducts();
     } catch (error) {
       throw error;
     } finally {
@@ -158,13 +160,16 @@ function Header() {
               </ul>
               <div className="flex items-center gap-2 flex-col-reverse">
                 <div className="flex items-center gap-2 mt-3">
-                  <div className="flex items-center justify-center  h-8 w-8 bg-orange-500 rounded-full  cursor-pointer">
+                  <div
+                    className="flex items-center justify-center  h-8 w-8 bg-orange-500 rounded-full  cursor-pointer"
+                    onClick={() => getProducts()}
+                  >
                     <span className="text-white">
-                      <FaShoppingCart />
+                      <FaSyncAlt />
                     </span>
                   </div>
                   <span className="text-[16px] font-medium text-gray-200 ">
-                    Your cart
+                    Reload page
                   </span>
                 </div>
                 <Button
@@ -197,9 +202,12 @@ function Header() {
           </ul>
 
           <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer">
+            <div
+              className="flex items-center justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer"
+              onClick={() => getProducts()}
+            >
               <span className="text-white">
-                <FaShoppingCart />
+                <FaSyncAlt />
               </span>
             </div>
             <Button

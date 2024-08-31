@@ -39,6 +39,7 @@ const getProducts = () => {
 
 const saveProducts = (products: ProductDataProps[]) => {
   localStorage.setItem(PRODUCT_KEY, JSON.stringify(products));
+  getProducts();
 };
 
 const addProduct = (product: ProductDataProps) => {
@@ -46,6 +47,7 @@ const addProduct = (product: ProductDataProps) => {
   const products = getProducts();
   products.push(newProduct);
   saveProducts(products);
+  getProducts();
 };
 
 const updateProduct = (productId: string, updatedProduct: ProductDataProps) => {

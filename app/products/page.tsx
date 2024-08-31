@@ -12,7 +12,7 @@ import { Transition } from "@headlessui/react";
 import { useAppQuery } from "@/context/useAppQuery";
 
 function Products() {
-  const { data: products, loading } = useGetLocalStorageData();
+  const { data: products, loading } = useGetLocalStorageData("products");
   const { modal } = useAppQuery();
   const [filteredProducts, setFilteredproducts] =
     useState<ProductDataProps[]>(products);

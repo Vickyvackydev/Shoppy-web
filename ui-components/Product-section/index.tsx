@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const PRODUCT_KEY = "products";
 function ProductSection() {
   const { setModal, setSelectedData, setModalState } = useAppQuery();
-  const { data: products, loading } = useGetLocalStorageData();
+  const { data: products, loading } = useGetLocalStorageData("products");
   const router = useRouter();
 
   if (loading)
@@ -29,7 +29,7 @@ function ProductSection() {
 
       {products.length > 0 ? (
         <div className="grid lg:grid-cols-4 grid-cols-1 w-full gap-y-5">
-          {products.map((data: ProductDataProps) => (
+          {products.slice(0, 8).map((data: ProductDataProps) => (
             <ProductCard data={data} key={data.id} />
           ))}
         </div>
@@ -52,7 +52,7 @@ function ProductSection() {
       )}
       {products.length > 0 && (
         <Button
-          text="View all"
+          text="Go to product page"
           btnStyles="mt-3"
           handleClick={() => router.push("/products")}
           type="button"

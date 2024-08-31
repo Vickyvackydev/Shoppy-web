@@ -14,7 +14,7 @@ function ProductView() {
   const router = useRouter();
   const mobilescreen = useMediaQuery("(max-width: 640px)");
   const { setModal, setModalState, setSelectedData } = useAppQuery();
-  const { data: product } = useGetLocalStorageData();
+  const { data: product } = useGetLocalStorageData("products");
   const pathname = usePathname();
   const id = pathname.split("/").pop();
   const getProductById: any = product.find(
