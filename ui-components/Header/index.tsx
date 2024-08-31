@@ -1,6 +1,6 @@
 "use client";
 import { navlinks } from "@/constants";
-import { useMediaQuery } from "@/hooks";
+import { useGetLocalStorageData, useMediaQuery } from "@/hooks";
 import Button from "@/shared/components/button";
 import Logo from "@/shared/components/logo";
 import Modal from "@/shared/components/modal";
@@ -34,9 +34,11 @@ function Header() {
     selectedData,
     setSelectedData,
   } = useAppQuery();
+
   const pathname = usePathname();
   const productId = pathname.split("/").pop();
   const [menu, setMenu] = useState(false);
+
   const mobilescreen = useMediaQuery("(max-width: 640px)");
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [isPopular, setIspopular] = useState(false);
@@ -83,8 +85,6 @@ function Header() {
         // Add the product
         addProduct(updatedForm);
       }
-
-      getProducts();
     } catch (error) {
       throw error;
     } finally {
