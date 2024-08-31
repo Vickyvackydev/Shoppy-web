@@ -1,6 +1,4 @@
-"use client";
 import { ProductDataProps } from "@/types";
-
 import { v4 as uuidv4 } from "uuid";
 
 const PRODUCT_KEY = "products";

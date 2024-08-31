@@ -51,6 +51,10 @@ Nextjs comes with it's own seo management, making it fast an easy to search onli
 Data might not reload on time due to data being fetched from localstorage.
 Cloudinary tend to conflict images uploaded but doesn.t happen always. For that a button to reload products was added.
 
+## Server Rendering Issue
+
+Nextjs is a server side rendering frame-work which works most on the server, which means data are needed to be fetched from remote base, but due to the condtion of the task, localStorage was used which only works on localhost:3000 but not after the project is being hosted, so if you want to test the crud functionalities kindly do this through localhost. Ways of launching the app is detailed above.
+
 ## Note
 
 When you are updating an item, kindly change the item image for better experience, for it is made necessary than other fields on the ui.
