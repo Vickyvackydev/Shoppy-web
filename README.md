@@ -73,7 +73,11 @@ Nextjs is a server side rendering frame-work which works most on the server, whi
 
 `Typescript`: For types, params and props and easier ways to detect bugs.
 `TailwindCss`: for styling faster in each components that is rendered.
-`Cloudinary`: a cloud storage, for storing images or videos to be used on a web app, why this was required is because you can noy upload and display an image on a browser without a `secure_url`. So for this a cloud storage was reqired for only the image, to be displayed with a secured url
+`Cloudinary`: a cloud storage installed with it package, for storing images or videos to be used on a web app, why this was required is because you can noy upload and display an image on a browser without a `secure_url`. So for this a cloud storage was reqired for only the image, to be displayed with a secured url
+
+## Environment Variables
+
+Environment variables is avaiabale at the root folder of the project to store the Api-Keys and other necessary keys to access cloudinary from the project.
 
 ## Note
 
