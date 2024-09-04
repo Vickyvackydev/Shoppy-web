@@ -1,5 +1,5 @@
 "use client";
-import { useGetLocalStorageData } from "@/hooks";
+import { useGetFireStoreData } from "@/hooks";
 import ProductCard from "@/shared/components/product-card";
 import { ProductDataProps } from "@/types";
 import { usePathname, useRouter } from "next/navigation";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 function SearchResults() {
   const pathname = usePathname();
   const query = pathname.split("/").pop();
-  const { data: products } = useGetLocalStorageData("products");
+  const { data: products } = useGetFireStoreData("products");
   const [results, setResults] = useState<ProductDataProps[]>([]);
 
   useEffect(() => {

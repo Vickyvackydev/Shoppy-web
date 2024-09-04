@@ -4,7 +4,7 @@ import ProductCard from "@/shared/components/product-card";
 // import { productdata } from "@/constants";
 import { getProducts } from "@/utils";
 import { ProductDataProps } from "@/types";
-import { useGetLocalStorageData } from "@/hooks";
+import { useGetFireStoreData } from "@/hooks";
 import Button from "@/shared/components/button";
 import { useAppQuery } from "@/context/useAppQuery";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 const PRODUCT_KEY = "products";
 function ProductSection() {
   const { setModal, setSelectedData, setModalState } = useAppQuery();
-  const { data: products, loading } = useGetLocalStorageData("products");
+  const { data: products, loading } = useGetFireStoreData("products");
   const router = useRouter();
 
   if (loading)
@@ -30,7 +30,7 @@ function ProductSection() {
       {products.length > 0 ? (
         <div className="grid lg:grid-cols-4 grid-cols-1 w-full gap-y-5">
           {products.slice(0, 8).map((data: ProductDataProps) => (
-            <ProductCard data={data} key={data.id} />
+            <ProductCard data={data} key={data?.id} />
           ))}
         </div>
       ) : (

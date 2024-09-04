@@ -1,10 +1,12 @@
 "use client";
 import { useAppQuery } from "@/context/useAppQuery";
-import { useGetLocalStorageData, useMediaQuery } from "@/hooks";
+import { db } from "@/firebase/firebase.config";
+import { useGetFireStoreData, useMediaQuery } from "@/hooks";
 import Button from "@/shared/components/button";
 import Logo from "@/shared/components/logo";
 import { ProductDataProps } from "@/types";
 import { deleteProduct, getProducts } from "@/utils";
+import { deleteDoc, doc } from "firebase/firestore";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
@@ -14,16 +16,17 @@ function ProductView() {
   const router = useRouter();
   const mobilescreen = useMediaQuery("(max-width: 640px)");
   const { setModal, setModalState, setSelectedData } = useAppQuery();
-  const { data: product } = useGetLocalStorageData("products");
+  const { data: product } = useGetFireStoreData("products");
   const pathname = usePathname();
   const id = pathname.split("/").pop();
   const getProductById: any = product.find(
     (productId: ProductDataProps) => productId.id === id
   );
 
-  const handleDeleteProduct = (id: string) => {
-    deleteProduct(id);
-    getProducts();
+  const handleDeleteProduct = async (id: string) => {
+    const deletedDoc = doc(db, "products", id);
+    await deleteDoc(deletedDoc);
+
     router.push("/");
   };
   return (

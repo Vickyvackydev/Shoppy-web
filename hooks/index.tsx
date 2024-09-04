@@ -2,6 +2,9 @@
 
 import { getProducts } from "@/utils";
 import React, { useEffect, useState } from "react";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../firebase/firebase.config";
+import { ProductDataProps } from "@/types";
 
 type QueryProps = string;
 const useMediaQuery = (query: QueryProps) => {
@@ -23,22 +26,30 @@ const useMediaQuery = (query: QueryProps) => {
   return match;
 };
 
-const useGetLocalStorageData = (dataKey: any) => {
-  const [data, setData] = useState([]);
+const useGetFireStoreData = (collectionName: string) => {
+  const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState(true);
+  const dataCollectionRef = collection(db, collectionName);
 
   useEffect(() => {
-    const fetchData = () => {
-      setLoading(true);
-      const storedData = window.localStorage.getItem(dataKey);
-      const parsedData = storedData ? JSON.parse(storedData) : [];
-      setData(parsedData);
-      setLoading(false);
+    const fetchData = async () => {
+      try {
+        const dataList = await getDocs(dataCollectionRef);
+        const allData = dataList.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setData(allData);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        setLoading(false);
+      }
     };
 
     fetchData();
-  }, [dataKey]);
+  }, [collectionName, dataCollectionRef]);
 
   return { data, loading };
 };
-export { useMediaQuery, useGetLocalStorageData };
+export { useMediaQuery, useGetFireStoreData };

@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 export interface ButtonTypeProps {
   type: "submit" | "button";
   btnStyles: string;
@@ -7,7 +9,7 @@ export interface ButtonTypeProps {
 }
 
 export interface ProductDataProps {
-  id: string;
+  id: Key | null | undefined;
   name: string;
   category: string;
   price: number;

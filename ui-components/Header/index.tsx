@@ -1,6 +1,6 @@
 "use client";
 import { navlinks } from "@/constants";
-import { useGetLocalStorageData, useMediaQuery } from "@/hooks";
+import { useMediaQuery } from "@/hooks";
 import Button from "@/shared/components/button";
 import Logo from "@/shared/components/logo";
 import Modal from "@/shared/components/modal";
@@ -24,8 +24,9 @@ import Image from "next/image";
 import { useAppQuery } from "@/context/useAppQuery";
 import { Transition } from "@headlessui/react";
 import { usePathname } from "next/navigation";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { db } from "@/firebase/firebase.config";
 interface FormTypes {
-  id: string;
   name: string;
   price: number;
   category: string;
@@ -45,13 +46,12 @@ function Header() {
   const pathname = usePathname();
   const productId = pathname.split("/").pop();
   const [menu, setMenu] = useState(false);
-
+  const productCollectionRef = collection(db, "products");
   const mobilescreen = useMediaQuery("(max-width: 640px)");
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [isPopular, setIspopular] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);
   const [form, setForm] = useState<FormTypes>({
-    id: selectedData?.id ?? "",
     name: selectedData?.name ?? "",
     category: selectedData?.category ?? "",
     price: selectedData?.price ?? 0,
@@ -87,17 +87,16 @@ function Header() {
       // Update the form with the image URL
       const updatedForm = { ...form, image: imageUrl, isPopular: isPopular };
       if (id) {
-        updateProduct(id, updatedForm);
+        const productDoc = doc(db, "products", id);
+        await updateDoc(productDoc, updatedForm);
       } else {
         // Add the product
-        addProduct(updatedForm);
+        await addDoc(productCollectionRef, updatedForm);
       }
-      getProducts();
     } catch (error) {
       throw error;
     } finally {
       setForm({
-        id: "",
         name: "",
         category: "",
         price: 0,
@@ -113,7 +112,6 @@ function Header() {
   useEffect(() => {
     if (selectedData) {
       setForm({
-        id: selectedData.id || "",
         name: selectedData.name || "",
         category: selectedData.category || "",
         price: selectedData.price || 0,
