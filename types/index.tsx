@@ -9,7 +9,7 @@ export interface ButtonTypeProps {
 }
 
 export interface ProductDataProps {
-  id: Key | null | undefined;
+  id: string;
   name: string;
   category: string;
   price: number;

@@ -15,7 +15,7 @@ function ProductCard({ data }: { data: ProductDataProps }) {
     <div className="flex flex-col items-start gap-4 relative ">
       <div
         className="flex items-center justify-center cursor-pointer bg-white lg:w-[250px] w-full h-[270px] rounded-2xl"
-        onMouseEnter={() => setOverlay(data.id)}
+        onMouseEnter={() => setOverlay(data?.id)}
         onMouseLeave={() => setOverlay(null)}
       >
         {data.image && (
