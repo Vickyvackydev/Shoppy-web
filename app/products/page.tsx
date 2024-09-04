@@ -2,7 +2,7 @@
 import { categories, prices } from "@/constants";
 import React, { useEffect, useState } from "react";
 import { FaCheck, FaFilter } from "react-icons/fa";
-import { useGetLocalStorageData, useMediaQuery } from "@/hooks";
+import { useGetFireStoreData, useMediaQuery } from "@/hooks";
 import ProductCard from "@/shared/components/product-card";
 import { ProductDataProps } from "@/types";
 import { RiNumbersFill } from "react-icons/ri";
@@ -12,7 +12,7 @@ import { Transition } from "@headlessui/react";
 import { useAppQuery } from "@/context/useAppQuery";
 
 function Products() {
-  const { data: products, loading } = useGetLocalStorageData("products");
+  const { data: products, loading } = useGetFireStoreData("products");
   const { modal } = useAppQuery();
   const [filteredProducts, setFilteredproducts] =
     useState<ProductDataProps[]>(products);
