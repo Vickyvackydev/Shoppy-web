@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBl1v27bF3R09-cSObspG9M_G9p_FW6bqM",
-  authDomain: "shoppy-web-9334a.firebaseapp.com",
-  projectId: "shoppy-web-9334a",
-  storageBucket: "shoppy-web-9334a.appspot.com",
-  messagingSenderId: "120593189897",
-  appId: "1:120593189897:web:c1c3d1e756824ca4e87cd8",
+  apiKey: NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: NEXT_PUBLIC_APP_ID,
 };
 
 // Initialize Firebase
