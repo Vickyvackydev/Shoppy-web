@@ -1,6 +1,6 @@
 "use client";
 import { navlinks } from "@/constants";
-import { useMediaQuery } from "@/hooks";
+import { useGetFireStoreData, useMediaQuery } from "@/hooks";
 import Button from "@/shared/components/button";
 import Logo from "@/shared/components/logo";
 import Modal from "@/shared/components/modal";
@@ -8,22 +8,17 @@ import React, { useEffect, useState } from "react";
 import {
   FaBars,
   FaCheck,
+  FaHeart,
   FaImage,
   FaShoppingCart,
   FaSyncAlt,
   FaTimes,
 } from "react-icons/fa";
-import {
-  addProduct,
-  getProducts,
-  reloadBrowser,
-  updateProduct,
-  uploadImage,
-} from "@/utils";
+import { uploadImage } from "@/utils";
 import Image from "next/image";
 import { useAppQuery } from "@/context/useAppQuery";
 import { Transition } from "@headlessui/react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase.config";
 interface FormTypes {
@@ -44,8 +39,10 @@ function Header() {
   } = useAppQuery();
 
   const pathname = usePathname();
+  const router = useRouter();
   const productId = pathname.split("/").pop();
   const [menu, setMenu] = useState(false);
+  const { data: favorites } = useGetFireStoreData("favorites");
   const productCollectionRef = collection(db, "products");
   const mobilescreen = useMediaQuery("(max-width: 640px)");
   const [isSubmiting, setIsSubmiting] = useState(false);
@@ -122,6 +119,10 @@ function Header() {
     }
   }, [selectedData]); // Run this effect whenever selectedData changes
 
+  function reloadBrowser(): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <>
       {mobilescreen ? (
@@ -166,14 +167,14 @@ function Header() {
                 <div className="flex items-center gap-2 mt-3">
                   <div
                     className="flex items-center justify-center  h-8 w-8 bg-orange-500 rounded-full  cursor-pointer"
-                    onClick={() => reloadBrowser()}
+                    onClick={() => router.push("/favorites-products")}
                   >
                     <span className="text-white">
-                      <FaSyncAlt />
+                      <FaHeart />
                     </span>
                   </div>
                   <span className="text-[16px] font-medium text-gray-200 ">
-                    Reload page
+                    Favorites
                   </span>
                 </div>
                 <Button
@@ -205,13 +206,16 @@ function Header() {
             ))}
           </ul>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ">
             <div
-              className="flex items-center justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer"
-              onClick={() => reloadBrowser()}
+              className="flex items-center relative justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer"
+              onClick={() => router.push("/favorites-products")}
             >
+              {favorites.length > 0 && (
+                <div className="w-3 h-3 rounded-full bg-orange-500 absolute -top-1 -right-1" />
+              )}
               <span className="text-white">
-                <FaSyncAlt />
+                <FaHeart />
               </span>
             </div>
             <Button

@@ -1,3 +1,7 @@
+import { db } from "@/firebase/firebase.config";
+import { FavoriteDataProps, ProductDataProps } from "@/types";
+import { addDoc, collection } from "firebase/firestore";
+
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction
   ? process.env.NEXT_PUBLIC_SERVER_URL
@@ -68,4 +72,14 @@ const uploadImage = async (formData: FormData) => {
 //   }
 // };
 
-export { uploadImage };
+const addToFavorites = async (data: FavoriteDataProps) => {
+  const favoriteCollectionRef = collection(db, "favorites");
+  await addDoc(favoriteCollectionRef, {
+    name: data?.name,
+    category: data?.category,
+    image: data?.image,
+    price: data?.price,
+    isPopular: data?.isPopular,
+  });
+};
+export { uploadImage, addToFavorites };

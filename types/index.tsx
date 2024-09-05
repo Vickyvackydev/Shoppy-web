@@ -16,3 +16,10 @@ export interface ProductDataProps {
   image: string;
   isPopular: boolean;
 }
+export interface FavoriteDataProps {
+  name: string | undefined;
+  category: string | undefined;
+  price: number | undefined;
+  image: string | undefined;
+  isPopular: boolean | undefined;
+}

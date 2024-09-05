@@ -5,7 +5,6 @@ import { useGetFireStoreData, useMediaQuery } from "@/hooks";
 import Button from "@/shared/components/button";
 import Logo from "@/shared/components/logo";
 import { ProductDataProps } from "@/types";
-import { deleteProduct, getProducts } from "@/utils";
 import { deleteDoc, doc } from "firebase/firestore";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
