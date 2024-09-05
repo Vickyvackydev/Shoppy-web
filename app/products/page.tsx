@@ -7,7 +7,7 @@ import ProductCard from "@/shared/components/product-card";
 import { ProductDataProps } from "@/types";
 import { RiNumbersFill } from "react-icons/ri";
 import Button from "@/shared/components/button";
-import { getProducts } from "@/utils";
+
 import { Transition } from "@headlessui/react";
 import { useAppQuery } from "@/context/useAppQuery";
 
