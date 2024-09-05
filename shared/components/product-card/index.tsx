@@ -5,11 +5,12 @@ import { addToFavorites, deleteFavorites } from "@/utils";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaEye, FaHeart, FaPlus, FaTrash } from "react-icons/fa";
 
 function ProductCard({ data }: { data: ProductDataProps }) {
+  const router = useRouter();
   const [overlay, setOverlay] = useState<string | null>(null);
   const pathname = usePathname();
   const { setSelectedData, selectedData: selected_data } = useAppQuery();
@@ -22,9 +23,6 @@ function ProductCard({ data }: { data: ProductDataProps }) {
     isPopular: selected_data?.isPopular,
   };
 
-  // const handleAddFavorites = () => {
-  //   addToFavorites(favoriteData, "favorites");
-  // };
   return (
     <div className="flex flex-col items-start gap-4 relative ">
       <div
