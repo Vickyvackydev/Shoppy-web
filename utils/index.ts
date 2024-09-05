@@ -1,8 +1,3 @@
-import { ProductDataProps } from "@/types";
-import { v4 as uuidv4 } from "uuid";
-
-const PRODUCT_KEY = "products";
-
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction
   ? process.env.NEXT_PUBLIC_SERVER_URL
@@ -28,56 +23,49 @@ const uploadImage = async (formData: FormData) => {
   }
 };
 
-const getProducts = () => {
-  if (typeof window !== "undefined") {
-    const products = window.localStorage.getItem(PRODUCT_KEY);
-    return products ? JSON.parse(products) : [];
-  }
-  return [];
-};
+// const getProducts = () => {
+//   if (typeof window !== "undefined") {
+//     const products = window.localStorage.getItem(PRODUCT_KEY);
+//     return products ? JSON.parse(products) : [];
+//   }
+//   return [];
+// };
 
-const saveProducts = (products: ProductDataProps[]) => {
-  window.localStorage.setItem(PRODUCT_KEY, JSON.stringify(products));
-  getProducts();
-};
+// const saveProducts = (products: ProductDataProps[]) => {
+//   window.localStorage.setItem(PRODUCT_KEY, JSON.stringify(products));
+//   getProducts();
+// };
 
-const addProduct = (product: ProductDataProps) => {
-  const newProduct = { ...product, id: uuidv4() };
-  const products = getProducts();
-  products.push(newProduct);
-  saveProducts(products);
-  getProducts();
-};
+// const addProduct = (product: ProductDataProps) => {
+//   const newProduct = { ...product, id: uuidv4() };
+//   const products = getProducts();
+//   products.push(newProduct);
+//   saveProducts(products);
+//   getProducts();
+// };
 
-const updateProduct = (productId: string, updatedProduct: ProductDataProps) => {
-  const products = getProducts();
-  const singleProductIndex = products.findIndex(
-    (product: ProductDataProps) => product.id === productId
-  );
-  if (singleProductIndex !== -1) {
-    products[singleProductIndex] = updatedProduct;
-    saveProducts(products);
-  }
-};
+// const updateProduct = (productId: string, updatedProduct: ProductDataProps) => {
+//   const products = getProducts();
+//   const singleProductIndex = products.findIndex(
+//     (product: ProductDataProps) => product.id === productId
+//   );
+//   if (singleProductIndex !== -1) {
+//     products[singleProductIndex] = updatedProduct;
+//     saveProducts(products);
+//   }
+// };
 
-const deleteProduct = (productId: number | string) => {
-  const products = getProducts();
-  const remainingProducts = products.filter(
-    (product: ProductDataProps) => product.id !== productId
-  );
-  saveProducts(remainingProducts);
-};
-const reloadBrowser = () => {
-  if (typeof window !== "undefined") {
-    window.location.reload();
-  }
-};
+// const deleteProduct = (productId: number | string) => {
+//   const products = getProducts();
+//   const remainingProducts = products.filter(
+//     (product: ProductDataProps) => product.id !== productId
+//   );
+//   saveProducts(remainingProducts);
+// };
+// const reloadBrowser = () => {
+//   if (typeof window !== "undefined") {
+//     window.location.reload();
+//   }
+// };
 
-export {
-  deleteProduct,
-  addProduct,
-  updateProduct,
-  getProducts,
-  uploadImage,
-  reloadBrowser,
-};
+export { uploadImage };
