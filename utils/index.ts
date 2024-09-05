@@ -1,6 +1,6 @@
 import { db } from "@/firebase/firebase.config";
 import { FavoriteDataProps, ProductDataProps } from "@/types";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 
 const isProduction = process.env.NODE_ENV === "production";
 const serverUrl = isProduction
@@ -82,4 +82,7 @@ const addToFavorites = async (data: FavoriteDataProps) => {
     isPopular: data?.isPopular,
   });
 };
-export { uploadImage, addToFavorites };
+const deleteFavorites = async (id: string) => {
+  await deleteDoc(doc(db, "favorites", id));
+};
+export { uploadImage, addToFavorites, deleteFavorites };

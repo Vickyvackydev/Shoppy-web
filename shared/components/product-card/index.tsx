@@ -1,13 +1,13 @@
 "use client";
 import { useAppQuery } from "@/context/useAppQuery";
 import { FavoriteDataProps, ProductDataProps } from "@/types";
-import { addToFavorites } from "@/utils";
+import { addToFavorites, deleteFavorites } from "@/utils";
 import { Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
-import { FaEye, FaHeart, FaPlus } from "react-icons/fa";
+import { FaEye, FaHeart, FaPlus, FaTrash } from "react-icons/fa";
 
 function ProductCard({ data }: { data: ProductDataProps }) {
   const [overlay, setOverlay] = useState<string | null>(null);
@@ -53,17 +53,32 @@ function ProductCard({ data }: { data: ProductDataProps }) {
           className="lg:w-[250px] w-full h-[270px] absolute bg-black/50 inset-0 rounded-2xl  z-30"
         >
           <div className="flex justify-center items-center gap-5 mt-[7rem]">
-            <div
-              onClick={() => {
-                setSelectedData({ ...data });
-                addToFavorites(favoriteData);
-              }}
-              className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
-            >
-              <span>
-                <FaHeart />
-              </span>
-            </div>
+            {pathname.includes("/favorites-products") ? (
+              <div
+                onClick={() => {
+                  deleteFavorites(data.id);
+                  router.push("/");
+                }}
+                className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
+              >
+                <span>
+                  <FaTrash />
+                </span>
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setSelectedData({ ...data });
+                  addToFavorites(favoriteData);
+                }}
+                className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
+              >
+                <span>
+                  <FaHeart />
+                </span>
+              </div>
+            )}
+
             <Link
               href={`/product-details/${data.id}`}
               className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
