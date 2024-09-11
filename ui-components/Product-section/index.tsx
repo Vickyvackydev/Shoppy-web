@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ProductCard from "@/shared/components/product-card";
-// import { productdata } from "@/constants";
-import { getProducts } from "@/utils";
 import { ProductDataProps } from "@/types";
 import { useGetFireStoreData } from "@/hooks";
 import Button from "@/shared/components/button";

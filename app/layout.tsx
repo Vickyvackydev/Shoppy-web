@@ -4,12 +4,6 @@ import "./globals.css";
 import Layout from "@/shared/layout";
 import { AppContextProvider } from "@/context/useAppQuery";
 
-const workSans = Work_Sans({
-  subsets: ["latin"],
-  variable: "--font-work-sans",
-  weight: ["400", "600", "700"],
-});
-
 export const metadata: Metadata = {
   title: "Shoppy",
   description:
@@ -23,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${workSans.className} bg-primary-grey-200`}>
+      <body className={`bg-primary-grey-200`}>
         <AppContextProvider>
           <Layout>
             <main>{children}</main>

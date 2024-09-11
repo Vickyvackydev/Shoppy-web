@@ -1,9 +1,7 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { collection, getDoc, getDocs } from "firebase/firestore";
 import { db } from "../firebase/firebase.config";
-import { ProductDataProps } from "@/types";
 
 type QueryProps = string;
 const useMediaQuery = (query: QueryProps) => {

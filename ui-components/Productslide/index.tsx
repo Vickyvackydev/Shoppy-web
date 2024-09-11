@@ -9,24 +9,6 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { productdata } from "@/constants";
 import Image from "next/image";
 
-const breakpoints = {
-  320: {
-    slidesPerView: 2,
-    spaceBetween: 20,
-  },
-  460: {
-    slidesPerView: 3,
-    spaceBetween: 30,
-  },
-  640: {
-    slidesPerView: 4,
-    spaceBetween: 40,
-  },
-  1240: {
-    slidesPerView: 5,
-    spaceBetween: 50,
-  },
-};
 function ProductSlide() {
   return (
     <main className="w-full my-8 px-10">

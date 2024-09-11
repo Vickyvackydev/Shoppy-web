@@ -5,7 +5,6 @@ import Categories from "@/ui-components/Categories";
 import React from "react";
 import ProductSection from "@/ui-components/Product-section";
 import TestimonialSection from "@/ui-components/Testimonials-section";
-import dynamic from "next/dynamic";
 
 const Home = () => {
   return (

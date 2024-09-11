@@ -76,13 +76,14 @@ function ProductCard({ data }: { data: ProductDataProps }) {
                 </span>
               </div>
             )}
-
-            <Link
-              href={`/product-details/${data.id}`}
-              className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
-            >
-              <FaEye />
-            </Link>
+            {!pathname.includes("/favorites-products") && (
+              <Link
+                href={`/product-details/${data.id}`}
+                className="w-10 h-10 flex justify-center items-center border border-gray-300 hover:border-none hover:bg-orange-500 text-white rounded-full"
+              >
+                <FaEye />
+              </Link>
+            )}
           </div>
         </Transition>
       </div>

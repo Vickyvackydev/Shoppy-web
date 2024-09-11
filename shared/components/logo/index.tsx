@@ -6,7 +6,6 @@ import React from "react";
 
 function Logo() {
   const mobilescreen = useMediaQuery("(max-width: 640px)");
-  // const router = useRouter();
   return (
     <Link href="/" className="flex items-center gap-2 cursor-pointer">
       <Image

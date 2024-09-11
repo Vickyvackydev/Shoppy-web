@@ -1,5 +1,3 @@
-import { Key } from "react";
-
 export interface ButtonTypeProps {
   type: "submit" | "button";
   btnStyles: string;
