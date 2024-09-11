@@ -2,14 +2,14 @@ import { db } from "@/firebase/firebase.config";
 import { FavoriteDataProps, ProductDataProps } from "@/types";
 import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
 
-const isProduction = process.env.NODE_ENV === "production";
-const serverUrl = isProduction
-  ? process.env.NEXT_PUBLIC_SERVER_URL
-  : "http://localhost:3000";
+// const isProduction = process.env.NODE_ENV === "production";
+// const serverUrl = isProduction
+//   ? process.env.NEXT_PUBLIC_SERVER_URL
+//   : "http://localhost:3000";
 
 const uploadImage = async (formData: FormData) => {
   try {
-    const response = await fetch(`${serverUrl}/api/upload`, {
+    const response = await fetch(`/api/upload`, {
       method: "POST",
       body: formData, // Send the FormData directly
     });
