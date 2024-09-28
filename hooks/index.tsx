@@ -28,25 +28,48 @@ const useGetFireStoreData = (collectionName: string) => {
   const [loading, setLoading] = useState(true);
   const dataCollectionRef = collection(db, collectionName);
 
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const dataList = await getDocs(dataCollectionRef);
+      const allData = dataList.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setData(allData);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const dataList = await getDocs(dataCollectionRef);
-        const allData = dataList.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setData(allData);
-        setLoading(false);
-      } catch (error) {
-        console.log(error);
-        setLoading(false);
-      }
-    };
-
     fetchData();
-  }, [collectionName, dataCollectionRef]);
+  }, []);
 
-  return { data, loading };
+  const refetch = () => fetchData();
+
+  return { data, loading, refetch };
 };
-export { useMediaQuery, useGetFireStoreData };
+
+const useOnlineStatus = () => {
+  const [onLine, setOnLine] = useState(navigator.onLine);
+
+  useEffect(() => {
+    const handleOnLine = () => setOnLine(true);
+    const handleOffLine = () => setOnLine(false);
+
+    window.addEventListener("online", handleOnLine);
+    window.addEventListener("offline", handleOffLine);
+
+    return () => {
+      window.removeEventListener("online", handleOnLine);
+      window.removeEventListener("offline", handleOffLine);
+    };
+  }, []);
+
+  return onLine;
+};
+export { useMediaQuery, useGetFireStoreData, useOnlineStatus };

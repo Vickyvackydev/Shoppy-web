@@ -3,6 +3,12 @@ import Logo from "@/shared/components/logo";
 import React from "react";
 import { FiFacebook, FiInstagram, FiLinkedin, FiTwitter } from "react-icons/fi";
 
+const footerMediaIcons = [
+  { id: 1, icons: <FiInstagram /> },
+  { id: 2, icons: <FiFacebook /> },
+  { id: 3, icons: <FiTwitter /> },
+  { id: 4, icons: <FiLinkedin /> },
+];
 const FooterColumn = ({
   title,
   links,
@@ -37,7 +43,7 @@ function Footer() {
           We hos your empire business today <br /> using the latest technologies
         </span>
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center text-white w-9 h-9 rounded-full bg-gray-700">
+          {/* <div className="flex items-center justify-center text-white w-9 h-9 rounded-full bg-gray-700">
             <span>
               <FiInstagram />
             </span>
@@ -51,12 +57,15 @@ function Footer() {
             <span>
               <FiTwitter />
             </span>
-          </div>
-          <div className="flex items-center justify-center text-white w-9 h-9 rounded-full bg-gray-700">
-            <span>
-              <FiLinkedin />
-            </span>
-          </div>
+          </div> */}
+          {footerMediaIcons.map((icon) => (
+            <div
+              key={icon.id}
+              className="flex items-center justify-center text-white w-9 h-9 rounded-full bg-gray-700 hover:bg-orange-500 cursor-pointer transition transform hover:-translate-y-1 duration-300"
+            >
+              <span>{icon.icons}</span>
+            </div>
+          ))}
         </div>
       </div>
       <FooterColumn title={footerlinks[0].title} links={footerlinks[0].links} />

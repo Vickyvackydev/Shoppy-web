@@ -4,6 +4,7 @@ export interface ButtonTypeProps {
   text: string;
   handleClick: any;
   disabled?: boolean;
+  otherStyles?: string;
 }
 
 export interface ProductDataProps {

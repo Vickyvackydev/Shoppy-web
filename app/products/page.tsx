@@ -5,9 +5,7 @@ import { FaCheck, FaFilter } from "react-icons/fa";
 import { useGetFireStoreData, useMediaQuery } from "@/hooks";
 import ProductCard from "@/shared/components/product-card";
 import { ProductDataProps } from "@/types";
-import { RiNumbersFill } from "react-icons/ri";
 import Button from "@/shared/components/button";
-
 import { Transition } from "@headlessui/react";
 import { useAppQuery } from "@/context/useAppQuery";
 
@@ -74,8 +72,7 @@ function Products() {
   useEffect(() => {
     if (mobileScreen) {
       setShowFilterBox(false);
-    }
-    {
+    } else {
       setShowFilterBox(true);
     }
   }, [mobileScreen]);

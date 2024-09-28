@@ -1,6 +1,6 @@
 "use client";
 import { navlinks } from "@/constants";
-import { useGetFireStoreData, useMediaQuery } from "@/hooks";
+import { useGetFireStoreData, useMediaQuery, useOnlineStatus } from "@/hooks";
 import Button from "@/shared/components/button";
 import Logo from "@/shared/components/logo";
 import Modal from "@/shared/components/modal";
@@ -10,9 +10,8 @@ import {
   FaCheck,
   FaHeart,
   FaImage,
-  FaShoppingCart,
-  FaSyncAlt,
   FaTimes,
+  FaUser,
 } from "react-icons/fa";
 import { uploadImage } from "@/utils";
 import Image from "next/image";
@@ -21,6 +20,8 @@ import { Transition } from "@headlessui/react";
 import { usePathname, useRouter } from "next/navigation";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firebase.config";
+import { FiWifiOff } from "react-icons/fi";
+
 interface FormTypes {
   name: string;
   price: number;
@@ -38,9 +39,12 @@ function Header() {
     setSelectedData,
   } = useAppQuery();
 
+  const isLoggedIn = true;
+  const online = useOnlineStatus();
   const pathname = usePathname();
   const router = useRouter();
   const productId = pathname.split("/").pop();
+  const [offLineFlag, setOffLineFlag] = useState(false);
   const [menu, setMenu] = useState(false);
   const { data: favorites } = useGetFireStoreData("favorites");
   const productCollectionRef = collection(db, "products");
@@ -67,6 +71,9 @@ function Header() {
 
   const handleSubmit = async (e: React.FormEvent, id?: string) => {
     setIsSubmiting(true);
+    if (!online) {
+      setOffLineFlag(true);
+    }
     e.preventDefault();
     try {
       if (!form.image) {
@@ -119,10 +126,6 @@ function Header() {
     }
   }, [selectedData]); // Run this effect whenever selectedData changes
 
-  function reloadBrowser(): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <>
       {mobilescreen ? (
@@ -140,9 +143,7 @@ function Header() {
             leave="transition-transform ease-in duration-200"
             leaveFrom="-translate-y-0"
             leaveTo="-translate-y-full"
-            className={
-              "absolute bg-black/80 w-full h-full z-50 bottom-0 left-0"
-            }
+            className={"fixed bg-black/80 w-full h-full  bottom-0 left-0 z-50"}
             show={menu}
           >
             <div className="relative">
@@ -205,29 +206,50 @@ function Header() {
               </li>
             ))}
           </ul>
-
-          <div className="flex items-center gap-2 ">
-            <div
-              className="flex items-center relative justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer"
-              onClick={() => router.push("/favorites-products")}
-            >
-              {favorites.length > 0 && (
-                <div className="w-3 h-3 rounded-full bg-orange-500 absolute -top-1 -right-1" />
-              )}
-              <span className="text-white">
-                <FaHeart />
-              </span>
+          {isLoggedIn ? (
+            <div className="flex items-center gap-2 ">
+              <div
+                className="flex items-center relative justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer"
+                onClick={() => router.push("/favorites-products")}
+              >
+                {favorites.length > 0 && (
+                  <div className="w-3 h-3 rounded-full bg-orange-500 absolute -top-1 -right-1" />
+                )}
+                <span className="text-white">
+                  <FaHeart />
+                </span>
+              </div>
+              <Button
+                text="Add Product"
+                handleClick={() => {
+                  setModal(true);
+                  setModalState("upload");
+                }}
+                btnStyles=""
+                type="button"
+              />
             </div>
-            <Button
-              text="Add Product"
-              handleClick={() => {
-                setModal(true);
-                setModalState("upload");
-              }}
-              btnStyles=""
-              type="button"
-            />
-          </div>
+          ) : (
+            <div className="flex items-center gap-2 ">
+              <div
+                className="flex items-center relative justify-center h-8 w-8 hover:bg-orange-500 rounded-full border-white border hover:border-none cursor-pointer"
+                onClick={() => router.push("/favorites-products")}
+              >
+                {favorites.length > 0 && (
+                  <div className="w-3 h-3 rounded-full bg-orange-500 absolute -top-1 -right-1" />
+                )}
+                <span className="text-white">
+                  <FaUser />
+                </span>
+              </div>
+              <Button
+                text="Sign up with google"
+                handleClick={() => {}}
+                btnStyles=""
+                type="button"
+              />
+            </div>
+          )}
         </header>
       )}
       <Modal isOpen={modal} isClose={() => setModal(false)}>
@@ -367,6 +389,28 @@ function Header() {
           </div>
         </div>
       </Modal>
+
+      <Transition
+        as={"div"}
+        enter="transition-transform ease-out duration-300"
+        enterFrom="-translate-y-full"
+        enterTo="-translate-y-0"
+        leave="transition-transform ease-in duration-200"
+        leaveFrom="-translate-y-0"
+        leaveTo="-translate-y-full"
+        show={offLineFlag}
+        className={
+          "fixed  top-0 z-50 bg-black/50 inset-0 flex justify-center items-center"
+        }
+        onClick={() => setOffLineFlag(false)}
+      >
+        <div className="absolute top-0 flex items-center gap-2 mt-10 bg-[#f97316] p-2 rounded-xl">
+          <FiWifiOff size={mobilescreen ? 24 : 32} color="#ccc" />
+          <span className="text-white lg:text-[16px] text-sm lg:break-normal lg:w-full w-[210px] break-words">
+            {`You're offline!. Connect to the internet to perform this action!.`}
+          </span>
+        </div>
+      </Transition>
     </>
   );
 }
